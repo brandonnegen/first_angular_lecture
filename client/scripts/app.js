@@ -3,6 +3,15 @@ var myApp = angular.module('myApp', []);
 myApp.controller("WelcomeController", ['$scope', '$http', function($scope, $http){
     $scope.note = {};
     $scope.notes = [];
+    $scope.dataCount;
+    $scope.personOne;
+    $scope.personTwo;
+    $scope.selected = 0;
+
+    $scope.select = function(index){
+      $scope.selected = index;
+        console.log($scope.selected);
+    };
 
     $scope.heading = "Check Out This Cool Stuff!!! ";
 
@@ -12,7 +21,19 @@ myApp.controller("WelcomeController", ['$scope', '$http', function($scope, $http
            console.log(response);
             $scope.note = {};
             $scope.notes = response.data;
-            console.log("Notes", $scope.notes);
+            $scope.dataCount = $scope.notes.length;
+            //$scope.select = function(response) {
+            //    for (var i = 0; i < response.data.length; i++) {
+            //        console.log(response.data[i]._id);
+            //        console.log(response.data[i].message);
+            //        $scope.selected = response.data[i].message;
+            //        console.log($scope.selected);
+            //    }
+            //};
+            for(var i = 0; i < response.data.length; i++){
+                console.log(response.data[i]._id);
+                console.log(response.data[i].message);
+            }
         });
     };
 
@@ -20,5 +41,4 @@ myApp.controller("WelcomeController", ['$scope', '$http', function($scope, $http
         //POST
         $http.post('/data', note).then($scope.getData());
     };
-    console.log("outside loop", $scope.notes);
 }]);

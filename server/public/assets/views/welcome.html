@@ -1,6 +1,24 @@
 <div class="container" ng-controller="WelcomeController">
     <div class="row">
         <div class="col-md-12">
+            <!--<ng-pluralize count="dataCount" offset=2-->
+                          <!--when="{'0': 'There is nothing in the database',-->
+                          <!--'1': '{{personOne}} is in the database',-->
+                          <!--'2': '{{personOne}} and {{personTwo}} are in the database',-->
+                          <!--'one': '{{personOne}}, {{personTwo}} and one more thing is in the database',-->
+                          <!--'other': '{{personOne}}, {{personTwo}} and {} things are in the database'}">-->
+
+            <!--</ng-pluralize>-->
+            <ng-pluralize count="dataCount"
+                          when="{'0': 'There is nothing in the database',
+                          'one': 'There is one thing in the database',
+                          'other': 'There are {} things in the database'}">
+
+            </ng-pluralize>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <h1>{{heading + message}}</h1>
             <input ng-model="note.message" type="text" placeholder="Enter your name">
             <button class="btn btn-danger btn-active" ng-click="updateMessage(note)">Update</button>
@@ -8,7 +26,7 @@
     </div>
     <div class="row">
         <div class="messageDisplay">
-            <p class="well col-md-3 col-sm-12" ng-repeat="note in notes">{{note.message}}</p>
+            <p class="well col-md-3 col-sm-12" ng-class="{$el: $index == selected}"  ng-click="select($index)" ng-repeat="note in notes">{{note.message}}</p>
         </div>
     </div>
 </div>
